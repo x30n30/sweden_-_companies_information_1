@@ -112,18 +112,18 @@ def action(srch)
 end
 
 trial = get_metadata("TRIAL","A")
-trial = "A" if trial.nil? or trial.empty? 
-srch = trial.nil? or trial.empty? ? "A" : trial.split(">>").last #get_metadata("SRCH",'A')
+srch = trial.nil? ? "A" : trial.split(">>").last #get_metadata("SRCH",'A')
 
 s_url=BASE_URL+"/fpl-dft-ext-web/home.seam?actionMethod=home.xhtml:search.onNewSearch()&cid=34794"
 @pg = @br.get(s_url)
+
 
 begin
   ret = action(srch)
   if ret.nil? or ret == 0
     if trial.nil? or trial.empty? 
       srch = srch.next
-      trial = srch
+      trial = srch.next
     else
       t_a = trial.split(">>")
       t_s = t_a.pop
